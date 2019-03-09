@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptj.dao.AuthenticationMapper" >
+  <resultMap id="BaseResultMap" type="com.ptj.pojo.Authentication" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="authentication_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="photo_one" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="photo_two" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="authentication_data" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="result" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, authentication_type, photo_one, photo_two, authentication_data, 
+    result, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from authentication
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from authentication
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ptj.pojo.Authentication" >
+    insert into authentication (id, user_id, user_name, 
+      authentication_type, photo_one, photo_two, 
+      authentication_data, result, status, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{authenticationType,jdbcType=INTEGER}, #{photoOne,jdbcType=VARCHAR}, #{photoTwo,jdbcType=VARCHAR}, 
+      #{authenticationData,jdbcType=TIMESTAMP}, #{result,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptj.pojo.Authentication" >
+    insert into authentication
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="authenticationType != null" >
+        authentication_type,
+      </if>
+      <if test="photoOne != null" >
+        photo_one,
+      </if>
+      <if test="photoTwo != null" >
+        photo_two,
+      </if>
+      <if test="authenticationData != null" >
+        authentication_data,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationType != null" >
+        #{authenticationType,jdbcType=INTEGER},
+      </if>
+      <if test="photoOne != null" >
+        #{photoOne,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTwo != null" >
+        #{photoTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationData != null" >
+        #{authenticationData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptj.pojo.Authentication" >
+    update authentication
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationType != null" >
+        authentication_type = #{authenticationType,jdbcType=INTEGER},
+      </if>
+      <if test="photoOne != null" >
+        photo_one = #{photoOne,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTwo != null" >
+        photo_two = #{photoTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationData != null" >
+        authentication_data = #{authenticationData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptj.pojo.Authentication" >
+    update authentication
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      authentication_type = #{authenticationType,jdbcType=INTEGER},
+      photo_one = #{photoOne,jdbcType=VARCHAR},
+      photo_two = #{photoTwo,jdbcType=VARCHAR},
+      authentication_data = #{authenticationData,jdbcType=TIMESTAMP},
+      result = #{result,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findByIdAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from authentication
+    where user_id = #{userId,jdbcType=INTEGER}
+    and authentication_type = #{authenticationType,jdbcType=INTEGER}
+    and status = 0
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from authentication
+    where status = 0 order by authentication_data desc
+  </select>
+  <select id="findAllByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from authentication
+    where user_id = #{userId,jdbcType=INTEGER}
+    and status = 0
+    order by authentication_data desc
+  </select>
+</mapper>

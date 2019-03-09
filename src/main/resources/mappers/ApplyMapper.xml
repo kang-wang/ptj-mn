@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptj.dao.ApplyMapper">
+    <resultMap id="BaseResultMap" type="com.ptj.pojo.Apply">
+        <constructor>
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="job_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="apply_user_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="apply_information" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="apply_data" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="handle_data" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="handle_status" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, job_id, apply_user_id, apply_information, apply_data, handle_data, handle_status, 
+    remark
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.ptj.pojo.Apply">
+    insert into apply (id, job_id, apply_user_id, 
+      apply_information, apply_data, handle_data, 
+      handle_status, remark)
+    values (#{id,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, #{applyUserId,jdbcType=INTEGER}, 
+      #{applyInformation,jdbcType=VARCHAR}, #{applyData,jdbcType=TIMESTAMP}, #{handleData,jdbcType=TIMESTAMP}, 
+      #{handleStatus,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.ptj.pojo.Apply">
+        insert into apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="jobId != null">
+                job_id,
+            </if>
+            <if test="applyUserId != null">
+                apply_user_id,
+            </if>
+            <if test="applyInformation != null">
+                apply_information,
+            </if>
+            <if test="applyData != null">
+                apply_data,
+            </if>
+            <if test="handleData != null">
+                handle_data,
+            </if>
+            <if test="handleStatus != null">
+                handle_status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="jobId != null">
+                #{jobId,jdbcType=INTEGER},
+            </if>
+            <if test="applyUserId != null">
+                #{applyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="applyInformation != null">
+                #{applyInformation,jdbcType=VARCHAR},
+            </if>
+            <if test="applyData != null">
+                #{applyData,jdbcType=TIMESTAMP},
+            </if>
+            <if test="handleData != null">
+                #{handleData,jdbcType=TIMESTAMP},
+            </if>
+            <if test="handleStatus != null">
+                #{handleStatus,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ptj.pojo.Apply">
+        update apply
+        <set>
+            <if test="jobId != null">
+                job_id = #{jobId,jdbcType=INTEGER},
+            </if>
+            <if test="applyUserId != null">
+                apply_user_id = #{applyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="applyInformation != null">
+                apply_information = #{applyInformation,jdbcType=VARCHAR},
+            </if>
+            <if test="applyData != null">
+                apply_data = #{applyData,jdbcType=TIMESTAMP},
+            </if>
+            <if test="handleData != null">
+                handle_data = #{handleData,jdbcType=TIMESTAMP},
+            </if>
+            <if test="handleStatus != null">
+                handle_status = #{handleStatus,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ptj.pojo.Apply">
+    update apply
+    set job_id = #{jobId,jdbcType=INTEGER},
+      apply_user_id = #{applyUserId,jdbcType=INTEGER},
+      apply_information = #{applyInformation,jdbcType=VARCHAR},
+      apply_data = #{applyData,jdbcType=TIMESTAMP},
+      handle_data = #{handleData,jdbcType=TIMESTAMP},
+      handle_status = #{handleStatus,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="findApplyByTwoid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where job_id = #{jobId,jdbcType=INTEGER}
+        and apply_user_id = #{applyUserId,jdbcType=INTEGER}
+    </select>
+    <select id="findAllApply" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        where apply_user_id = #{applyUserId,jdbcType=INTEGER}
+        order by apply_data desc
+    </select>
+    <select id="findAllApplyByAddId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply
+        WHERE job_id in (select job.id FROM job where user_id = #{addId})
+        order by apply_data desc
+    </select>
+</mapper>

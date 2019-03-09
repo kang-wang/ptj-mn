@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptj.dao.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.ptj.pojo.Report" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="report_user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Bereport_user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="report_content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="report_data" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="result" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_user_id, Bereport_user_id, report_content, report_data, status, remark, 
+    result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ptj.pojo.Report" >
+    insert into report (id, report_user_id, Bereport_user_id, 
+      report_content, report_data, status, 
+      remark, result)
+    values (#{id,jdbcType=INTEGER}, #{reportUserId,jdbcType=INTEGER}, #{bereportUserId,jdbcType=INTEGER}, 
+      #{reportContent,jdbcType=VARCHAR}, #{reportData,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptj.pojo.Report" >
+    insert into report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportUserId != null" >
+        report_user_id,
+      </if>
+      <if test="bereportUserId != null" >
+        Bereport_user_id,
+      </if>
+      <if test="reportContent != null" >
+        report_content,
+      </if>
+      <if test="reportData != null" >
+        report_data,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportUserId != null" >
+        #{reportUserId,jdbcType=INTEGER},
+      </if>
+      <if test="bereportUserId != null" >
+        #{bereportUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reportContent != null" >
+        #{reportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reportData != null" >
+        #{reportData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptj.pojo.Report" >
+    update report
+    <set >
+      <if test="reportUserId != null" >
+        report_user_id = #{reportUserId,jdbcType=INTEGER},
+      </if>
+      <if test="bereportUserId != null" >
+        Bereport_user_id = #{bereportUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reportContent != null" >
+        report_content = #{reportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reportData != null" >
+        report_data = #{reportData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptj.pojo.Report" >
+    update report
+    set report_user_id = #{reportUserId,jdbcType=INTEGER},
+      Bereport_user_id = #{bereportUserId,jdbcType=INTEGER},
+      report_content = #{reportContent,jdbcType=VARCHAR},
+      report_data = #{reportData,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findAllReport" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from report
+    where status = 0
+    order by report_data asc
+  </select>
+  <select id="findAllReportByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from report
+    where status = 0
+    and report_user_id = #{reportUserId}
+    order by report_data asc
+  </select>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptj.dao.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.ptj.pojo.Job" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="job_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_describe" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_category" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_salary" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="job_salary_unit" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="working_hours" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="working_days" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="contact" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_authentication" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="release_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="closing_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="issue_place" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, job_title, job_describe, job_category, job_salary, job_salary_unit, 
+    job_count, working_hours, working_days, contact, telephone, is_authentication, release_date, 
+    closing_date, issue_place, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ptj.pojo.Job" >
+    insert into job (id, user_id, job_title, 
+      job_describe, job_category, job_salary, 
+      job_salary_unit, job_count, working_hours, 
+      working_days, contact, telephone, 
+      is_authentication, release_date, closing_date, 
+      issue_place, status, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{jobTitle,jdbcType=VARCHAR}, 
+      #{jobDescribe,jdbcType=VARCHAR}, #{jobCategory,jdbcType=VARCHAR}, #{jobSalary,jdbcType=DOUBLE}, 
+      #{jobSalaryUnit,jdbcType=VARCHAR}, #{jobCount,jdbcType=INTEGER}, #{workingHours,jdbcType=VARCHAR}, 
+      #{workingDays,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{isAuthentication,jdbcType=INTEGER}, #{releaseDate,jdbcType=TIMESTAMP}, #{closingDate,jdbcType=TIMESTAMP}, 
+      #{issuePlace,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptj.pojo.Job" >
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="jobTitle != null" >
+        job_title,
+      </if>
+      <if test="jobDescribe != null" >
+        job_describe,
+      </if>
+      <if test="jobCategory != null" >
+        job_category,
+      </if>
+      <if test="jobSalary != null" >
+        job_salary,
+      </if>
+      <if test="jobSalaryUnit != null" >
+        job_salary_unit,
+      </if>
+      <if test="jobCount != null" >
+        job_count,
+      </if>
+      <if test="workingHours != null" >
+        working_hours,
+      </if>
+      <if test="workingDays != null" >
+        working_days,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="isAuthentication != null" >
+        is_authentication,
+      </if>
+      <if test="releaseDate != null" >
+        release_date,
+      </if>
+      <if test="closingDate != null" >
+        closing_date,
+      </if>
+      <if test="issuePlace != null" >
+        issue_place,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jobDescribe != null" >
+        #{jobDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCategory != null" >
+        #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSalary != null" >
+        #{jobSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="jobSalaryUnit != null" >
+        #{jobSalaryUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCount != null" >
+        #{jobCount,jdbcType=INTEGER},
+      </if>
+      <if test="workingHours != null" >
+        #{workingHours,jdbcType=VARCHAR},
+      </if>
+      <if test="workingDays != null" >
+        #{workingDays,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthentication != null" >
+        #{isAuthentication,jdbcType=INTEGER},
+      </if>
+      <if test="releaseDate != null" >
+        #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingDate != null" >
+        #{closingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuePlace != null" >
+        #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptj.pojo.Job" >
+    update job
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jobTitle != null" >
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jobDescribe != null" >
+        job_describe = #{jobDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCategory != null" >
+        job_category = #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="jobSalary != null" >
+        job_salary = #{jobSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="jobSalaryUnit != null" >
+        job_salary_unit = #{jobSalaryUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCount != null" >
+        job_count = #{jobCount,jdbcType=INTEGER},
+      </if>
+      <if test="workingHours != null" >
+        working_hours = #{workingHours,jdbcType=VARCHAR},
+      </if>
+      <if test="workingDays != null" >
+        working_days = #{workingDays,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthentication != null" >
+        is_authentication = #{isAuthentication,jdbcType=INTEGER},
+      </if>
+      <if test="releaseDate != null" >
+        release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingDate != null" >
+        closing_date = #{closingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuePlace != null" >
+        issue_place = #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptj.pojo.Job" >
+    update job
+    set user_id = #{userId,jdbcType=INTEGER},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
+      job_describe = #{jobDescribe,jdbcType=VARCHAR},
+      job_category = #{jobCategory,jdbcType=VARCHAR},
+      job_salary = #{jobSalary,jdbcType=DOUBLE},
+      job_salary_unit = #{jobSalaryUnit,jdbcType=VARCHAR},
+      job_count = #{jobCount,jdbcType=INTEGER},
+      working_hours = #{workingHours,jdbcType=VARCHAR},
+      working_days = #{workingDays,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      is_authentication = #{isAuthentication,jdbcType=INTEGER},
+      release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      closing_date = #{closingDate,jdbcType=TIMESTAMP},
+      issue_place = #{issuePlace,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findAllJobById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from job
+    where user_id = #{userId,jdbcType=INTEGER}
+    order by release_date desc
+  </select>
+  <select id="findAllJob" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from job
+    where status = 0
+    and  closing_date <![CDATA[>]]> now()
+    order by release_date desc
+  </select>
+  <select id="findAllJobByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from job
+    where closing_date <![CDATA[>]]> now()
+    and status = 0
+    <if test="category != null">
+      and job_category like concat('%', #{category},'%')
+    </if>
+    <if test="jobSalaryUnit != null">
+      and job_salary_unit like concat('%', #{jobSalaryUnit},'%')
+    </if>
+    <if test="minSalary != null" >
+      and job_salary <![CDATA[>=]]> #{minSalary}
+    </if>
+    <if test="maxSalary != null" >
+      and job_salary <![CDATA[<=]]> #{maxSalary}
+    </if>
+    <if test="minWorkingDays != null" >
+      and working_days <![CDATA[>=]]> #{minWorkingDays}
+    </if>
+    <if test="maxWorkingDays != null" >
+      and working_days <![CDATA[<=]]> #{maxWorkingDays}
+    </if>
+    <if test="city != null" >
+      and remark like concat('%', #{city},'%')
+    </if>
+    order by release_date desc
+  </select>
+</mapper>
